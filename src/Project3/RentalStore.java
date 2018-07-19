@@ -79,4 +79,6 @@ public class RentalStore extends AbstractListModel {
 			JOptionPane.showMessageDialog(null, "Error loading db");
 		}
 	}
+	
+	
 }
