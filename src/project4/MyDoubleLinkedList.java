@@ -1,4 +1,4 @@
-package Project3;
+package project4;
 
 /******************************************************************
 *DoubleLinkedList class for RentalStore to save DVDs to a list.
