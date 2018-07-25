@@ -107,4 +107,12 @@ public class DNode {
 			return false;
 	}
 	
+	/******************************************************************
+	*Returns this node's DVD object reference
+	*@returns DVD - the dvd object this node represents
+	******************************************************************/
+	public DVD getDVD() {
+		return this.dvd;
+	}
+	
 }
