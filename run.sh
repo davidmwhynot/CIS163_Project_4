@@ -1,5 +1,5 @@
 #!/bin/sh
-cd src/Project3
+cd src/project4
 javac -d ../../bin *.java
 cd ../../bin
-java Project3.RentalStoreGUI
+java project4.RentalStoreGUI

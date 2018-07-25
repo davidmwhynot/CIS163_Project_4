@@ -3,82 +3,105 @@ package project4;
 import javax.swing.*;
 import java.io.*;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RentalStore extends AbstractListModel {
 
-	private ArrayList<DVD> DVDList;
+    private MyDoubleLinkedList<DVD> DVDList;
 
-	private boolean filter;
+    private boolean filter;
 
-	public RentalStore() {
-		super();
-		filter = false;
-		DVDList = new ArrayList<DVD>();
-	}
+    public RentalStore() {
+        super();
+        filter = false;
+        DVDList = new MyDoubleLinkedList<DVD>();
+    }
 
-	public void add (DVD a) {
-		DVDList.add(a);
-		fireIntervalAdded(this, 0, DVDList.size());
-	}
+    public void add (DVD a) {
+        DVDList.add(a);
+        fireIntervalAdded(this, 0, DVDList.size());
+    }
 
-	public void remove (int i) {
-		DVDList.remove(i);
-		fireIntervalRemoved(this, 0, DVDList.size());
-	}
+    public void remove (int i) {
+        DVDList.remove(i);
+        fireIntervalRemoved(this, 0, DVDList.size());
+    }
 
-	public DVD get (int i) {
-		return DVDList.get(i);
-	}
+    public DVD get (int i) {
+        return DVDList.get(i);
+    }
 
-	public Object getElementAt(int i) {
-		DVD unit = DVDList.get(i);
+    public Object getElementAt(int i) {
+        DVD unit = DVDList.get(i);
 
-		//	String rentedOnDateStr = DateFormat.getDateInstance(DateFormat.SHORT)
-		//				.format(unit.getRentedOn().getTime());
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
-		String line = "Name: " + " " + DVDList.get(i).getNameOfRenter() + "  Title: " + DVDList.get(i).getTitle();
+        GregorianCalendar boughtCal = unit.getBought();
+        GregorianCalendar dueCal = unit.getDueBack();
 
-		if (unit instanceof Game) {
-			line += "  System: " + ((Game)unit).getPlayer();
-		}
+        df.setCalendar(boughtCal);
+        String bought = df.format(boughtCal.getTime());
 
-		return line;
-	}
+        df.setCalendar(dueCal);
+        String due = df.format(dueCal.getTime());
 
-	public int getSize() {
-		return DVDList.size();
-	}
+        String line =
+            "Name: " + unit.getNameOfRenter()
+            + "   ||   Title: " + unit.getTitle()
+            + "   ||   Bought: " + bought
+            + "   ||   Due: " + due;
 
-	public ArrayList<DVD> getList() {
-		return DVDList;
-	}
+        if (unit instanceof Game) {
+            line += "   ||   System: " + ((Game)unit).getPlayer();
+        }
 
-	public void saveAsSerializable(String filename) {
-		try {
-			FileOutputStream fos = new FileOutputStream(filename);
-			ObjectOutputStream os = new ObjectOutputStream(fos);
-			os.writeObject(DVDList);
-			os.close();
-		}
-		catch (IOException ex) {
-			JOptionPane.showMessageDialog(null, "Error saving db");
-		}
-	}
+        return line;
+    }
 
-	public void loadFromSerializable(String filename) {
-		try {
-			FileInputStream fis = new FileInputStream(filename);
-			ObjectInputStream is = new ObjectInputStream(fis);
+    public int getSize() {
+        return DVDList.size();
+    }
 
-			DVDList = (ArrayList<DVD>) is.readObject();
-			fireIntervalAdded(this, 0, DVDList.size() - 1);
-			is.close();
-		}
-		catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Error loading db");
-		}
-	}
-	
-	
+    public MyDoubleLinkedList<DVD> getList() {
+        return DVDList;
+    }
+
+    public void saveAsSerializable(String filename) {
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(DVDList);
+            os.close();
+        }
+        catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error saving db");
+        }
+    }
+
+    public void loadFromSerializable(String filename) {
+        try {
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream is = new ObjectInputStream(fis);
+
+            DVDList = (MyDoubleLinkedList<DVD>) is.readObject();
+            if(DVDList.size() > 0) {
+                fireIntervalAdded(this, 0, DVDList.size() - 1);
+            }
+            is.close();
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error loading db");
+        }
+    }
+
+    public void saveAsText(String filename) {
+        // TODO
+    }
+
+    public void loadFromText(String filename) {
+        // TODO
+    }
+
+
 }
