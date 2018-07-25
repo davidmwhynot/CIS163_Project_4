@@ -95,12 +95,41 @@ public class RentalStore extends AbstractListModel {
         }
     }
 
-    public void saveAsText(String filename) {
-        // TODO
+    public void saveAsText(String fileName) {
+        DNode curNode = dvdLinkedList.getTop();
+
+        try {
+            FileOutputStream outFile = new FileOutputStream(fileName);
+            ObjectOutputStream objOut = new ObjectOutputStream(outFile);
+
+            // writes each node's dvd as an object
+            while (curNode != null)
+                objOut.writeObject(curNode.getDVD());
+
+            objOut.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace(); // Prints exceptions to system.out
+        }
     }
 
-    public void loadFromText(String filename) {
-        // TODO
+    public void loadFromText(String fileName) {
+        dvdLinkedList = new MyDoubleLinkedList();
+
+        try {
+            FileInputStream inputFile = new FileInputStream(fileName);
+            ObjectInputStream objInput = new ObjectInputStream(
+                inputFile
+            );
+
+            while (objInput.readObject() != null)
+                if (objInput.readObject() instanceof DVD)
+                    dvdLinkedList.add((DVD)objInput.readObject());
+            objInput.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace(); // Prints exceptions to system.out
+        }
     }
 
 
