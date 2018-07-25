@@ -8,7 +8,9 @@ reference to next and previous nodes.
 @version 7/18/2018
 ***********************************************************************/
 
-public class DNode {
+import java.io.Serializable;
+
+public class DNode implements Serializable {
     /**
     * Reference to a DVD object.
     */

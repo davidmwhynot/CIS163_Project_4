@@ -28,10 +28,12 @@ public class DVD implements Serializable {
     Default constructor creates a DVD with null/default field values.
     *******************************************************************/
     public DVD() {
-        this.bought = null;
+        this.bought = new GregorianCalendar();
         this.dueBack = new GregorianCalendar();
         this.title = null;
         this.nameOfRenter = null;
+        bought.setLenient(false);
+        dueBack.setLenient(false);
     }
 
     /*******************************************************************
@@ -52,6 +54,8 @@ public class DVD implements Serializable {
         this.dueBack = dueBack;
         this.title = title;
         this.nameOfRenter = name;
+        bought.setLenient(false);
+        dueBack.setLenient(false);
     }
 
     /*******************************************************************

@@ -173,6 +173,7 @@ public class RentalStore extends AbstractTableModel {
             os.close();
         }
         catch (IOException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error saving db");
         }
     }
