@@ -1,5 +1,12 @@
 package project4;
 
+/***********************************************************************
+RentDVDDialog is the popup menu for creating a new DVD rental.
+
+@author David Whynot
+@version 7/25/2018
+***********************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

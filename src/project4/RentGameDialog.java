@@ -1,5 +1,12 @@
 package project4;
 
+/***********************************************************************
+RentGameDialog is a popupmenu for creating a game rental.
+
+@author David Whynot
+@version 7/25/2018
+***********************************************************************/
+
 import javax.swing.*;
 
 import java.awt.BorderLayout;
@@ -22,11 +29,12 @@ public class RentGameDialog  extends JDialog implements ActionListener {
     private final String[] SYSTEM_LIST = {"Xbox One", "Xbox 360",
     "PS4", "Nintendo Switch", "WiiU"};
 
+    /** JComboBox for the user to choose the game system the game is
+    for **/
+    private JComboBox systemBox;
+
     /** Text field where user enters the name of the rented game **/
     private JTextField titleTxt;
-
-    /** JList for the user to choose the game system the game is for **/
-    private JTextField playerTxt;
 
     /** Text field where user enters their own name **/
     private JTextField renterTxt;
@@ -82,8 +90,8 @@ public class RentGameDialog  extends JDialog implements ActionListener {
 
         /* Text box for input of game system */
         textPanel.add(new JLabel("Game System:"));
-        playerTxt = new JTextField("Xbox One", 30);
-        textPanel.add(playerTxt);
+        systemBox = new JComboBox(SYSTEM_LIST);
+        textPanel.add(systemBox);
 
         /* Gets today's date */
         Date date = Calendar.getInstance().getTime();
@@ -145,29 +153,34 @@ public class RentGameDialog  extends JDialog implements ActionListener {
             // validate due date
             if(!(dueCal.compareTo(boughtCal) < 0)) {
                 unit.setDueBack(dueCal);
-                // User input for PlayerType parsed
-                playerTxt.setText(playerTxt.getText().toLowerCase());
-
-                if (playerTxt.getText().contains("xbox1")) {
-                    unit.setPlayerType(PlayerType.XBox1);
-                    closeStatus = true;
-                } else if (playerTxt.getText().contains("xbox360")) {
-                    unit.setPlayerType(PlayerType.Xbox360);
-                    closeStatus = true;
-                } else if (playerTxt.getText().contains("wiiu")) {
-                    unit.setPlayerType(PlayerType.WiiU);
-                    closeStatus = true;
-                } else if (playerTxt.getText().contains("ps4")) {
-                    unit.setPlayerType(PlayerType.PS4);
-                    closeStatus = true;
-                } else if (playerTxt.getText().contains("nintendoswitch")) {
-                    unit.setPlayerType(PlayerType.NintendoSwitch);
-                    closeStatus = true;
-                } else {
-                    JOptionPane.showMessageDialog(
-                        null,
-                        "Game System Not Found"
-                    );
+                int i = systemBox.getSelectedIndex();
+                switch(i) {
+                    case 0:
+                        unit.setPlayerType(PlayerType.XBox1);
+                        closeStatus = true;
+                        break;
+                    case 1:
+                        unit.setPlayerType(PlayerType.XBox360);
+                        closeStatus = true;
+                        break;
+                    case 2:
+                        unit.setPlayerType(PlayerType.PS4);
+                        closeStatus = true;
+                        break;
+                    case 3:
+                        unit.setPlayerType(PlayerType.NintendoSwitch);
+                        closeStatus = true;
+                        break;
+                    case 4:
+                        unit.setPlayerType(PlayerType.WiiU);
+                        closeStatus = true;
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "Game System Not Found"
+                        );
+                        break;
                 }
             } else {
                 JOptionPane.showMessageDialog(

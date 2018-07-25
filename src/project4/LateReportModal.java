@@ -1,5 +1,14 @@
 package project4;
 
+/***********************************************************************
+LateReportModal extends JDialog and is a popup report window that
+displays all the rentals that would be late if returned on the given
+input date and how many days late those rentals are.
+
+@author David Whynot
+@version 7/25/2018
+***********************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +31,12 @@ public class LateReportModal extends JDialog {
     */
     private JPanel displayList;
 
+    /*******************************************************************
+    Constructor to create a late item report
+    @param parent the parent ui element the report is attached to
+    @param d the date the report is being generated for
+    @param list the database of rentals to generate the report for
+    *******************************************************************/
     public LateReportModal(
         JFrame parent,
         GregorianCalendar d,
@@ -69,6 +84,13 @@ public class LateReportModal extends JDialog {
 
         setVisible(true);
     }
+
+    /*******************************************************************
+    Computes the number of days between two dates
+    @param d1 the first date
+    @param s2 the second date
+    @return the number of days between the dates
+    *******************************************************************/
     private int daysBetween(Date d1, Date d2){
         return (int)(
             (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24)

@@ -63,8 +63,8 @@ public class DNode {
     }
 
     /*******************************************************************
-    *Sets this.next to given DNode reference. Next node in the list.
-    *@param DNode nextNode - The node this.next will point to.
+    * Sets this.next to given DNode reference. Next node in the list.
+    * @param DNode nextNode - The node this.next will point to.
     *******************************************************************/
     public void setNext(DNode nextNode) {
         this.next = nextNode;

@@ -22,8 +22,8 @@ public class MyDoubleLinkedList<T> implements Serializable {
     private DNode tail;
 
     /*******************************************************************
-    *Default constructor, creates a list with a size of 0 and no nodes
-    *Nodes are added to a list after it is constructed.
+    * Default constructor, creates a list with a size of 0 and no nodes
+    * Nodes are added to a list after it is constructed.
     ******************************************************************/
     public MyDoubleLinkedList() {
         // default constructor
@@ -245,7 +245,7 @@ public class MyDoubleLinkedList<T> implements Serializable {
         //loops until it reaches the end of the list
         while(temp != null) {
             if (temp == node)
-            return i; //match found, return index of node
+                return i; //match found, return index of node
             temp = temp.getNext();
             i++;
         }
